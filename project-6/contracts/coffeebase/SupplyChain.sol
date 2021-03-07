@@ -157,7 +157,9 @@ contract SupplyChain {
   function harvestItem(uint _upc, address _originFarmerID, string memory _originFarmName, string memory _originFarmInformation, string memory _originFarmLatitude, string memory _originFarmLongitude, string memory _productNotes) public
   {
     // Add the new item as part of Harvest
+    items[_upc].upc = _upc;
     items[_upc].sku = sku;
+    items[_upc].productID = sku + upc;
     items[_upc].itemState = State.Harvested;
     items[_upc].originFarmerID = _originFarmerID;
     items[_upc].originFarmName = _originFarmName;
@@ -206,6 +208,7 @@ contract SupplyChain {
   {
     // Update the appropriate fields
     items[_upc].itemState = State.ForSale;
+    items[_upc].productPrice = _price;
     // Emit the appropriate event
     emit ForSale(_upc);
   }
@@ -292,17 +295,18 @@ contract SupplyChain {
   {
   // Assign values to the 8 parameters
 
+  Item memory item = items[_upc];
 
   return
   (
-  itemSKU,
-  itemUPC,
-  ownerID,
-  originFarmerID,
-  originFarmName,
-  originFarmInformation,
-  originFarmLatitude,
-  originFarmLongitude
+  item.sku,
+  item.upc,
+  item.ownerID,
+  item.originFarmerID,
+  item.originFarmName,
+  item.originFarmInformation,
+  item.originFarmLatitude,
+  item.originFarmLongitude
   );
   }
 
@@ -322,18 +326,19 @@ contract SupplyChain {
   {
     // Assign values to the 9 parameters
 
+  Item memory item = items[_upc];
 
   return
   (
-  itemSKU,
-  itemUPC,
-  productID,
-  productNotes,
-  productPrice,
-  itemState,
-  distributorID,
-  retailerID,
-  consumerID
+    item.sku,
+    item.upc,
+    item.productID,
+    item.productNotes,
+    item.productPrice,
+    uint(item.itemState),
+    item.distributorID,
+    item.retailerID,
+    item.consumerID
   );
   }
 }
