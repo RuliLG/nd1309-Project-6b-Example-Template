@@ -81,11 +81,12 @@ contract SupplyChain {
   }
 
   // Define a modifier that checks the price and refunds the remaining balance
-  modifier checkValue(uint _upc) {
+  modifier checkValue(uint _upc, address _address) {
     _;
     uint _price = items[_upc].productPrice;
     uint amountToReturn = msg.value - _price;
-    address payable wallet = address(uint160(items[_upc].consumerID));
+    address payable wallet = address(uint160(_address));
+    // FIXME
     wallet.transfer(amountToReturn);
   }
 
@@ -223,15 +224,16 @@ contract SupplyChain {
     // Call modifer to check if buyer has paid enough
     paidEnough(items[_upc].productPrice)
     // Call modifer to send any excess ether back to buyer
-    checkValue(items[_upc].productPrice)
-    {
-
+    checkValue(items[_upc].productPrice, items[_upc].originFarmerID)
+  {
     // Update the appropriate fields - ownerID, distributorID, itemState
     items[_upc].itemState = State.Sold;
     items[_upc].ownerID = msg.sender;
     items[_upc].distributorID = msg.sender;
+
     // Transfer money to farmer
     address payable wallet = address(uint160(items[_upc].originFarmerID));
+
     wallet.transfer(items[_upc].productPrice);
     // emit the appropriate event
     emit Sold(_upc);
