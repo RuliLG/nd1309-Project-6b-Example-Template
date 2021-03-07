@@ -162,6 +162,7 @@ contract SupplyChain {
     items[_upc].productID = sku + upc;
     items[_upc].itemState = State.Harvested;
     items[_upc].originFarmerID = _originFarmerID;
+    items[_upc].ownerID = _originFarmerID;
     items[_upc].originFarmName = _originFarmName;
     items[_upc].originFarmInformation = _originFarmInformation;
     items[_upc].originFarmLatitude = _originFarmLatitude;
