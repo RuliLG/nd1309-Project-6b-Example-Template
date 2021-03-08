@@ -286,14 +286,14 @@ contract SupplyChain {
   // Define a function 'fetchItemBufferOne' that fetches the data
   function fetchItemBufferOne(uint _upc) public view returns
   (
-  uint    itemSKU,
-  uint    itemUPC,
-  address ownerID,
-  address originFarmerID,
-  string memory originFarmName,
-  string memory originFarmInformation,
-  string memory originFarmLatitude,
-  string memory originFarmLongitude
+    uint    itemSKU,
+    uint    itemUPC,
+    address ownerID,
+    address originFarmerID,
+    string memory originFarmName,
+    string memory originFarmInformation,
+    string memory originFarmLatitude,
+    string memory originFarmLongitude
   )
   {
   // Assign values to the 8 parameters
@@ -302,29 +302,29 @@ contract SupplyChain {
 
   return
   (
-  item.sku,
-  item.upc,
-  item.ownerID,
-  item.originFarmerID,
-  item.originFarmName,
-  item.originFarmInformation,
-  item.originFarmLatitude,
-  item.originFarmLongitude
+    item.sku,
+    item.upc,
+    item.ownerID,
+    item.originFarmerID,
+    item.originFarmName,
+    item.originFarmInformation,
+    item.originFarmLatitude,
+    item.originFarmLongitude
   );
   }
 
   // Define a function 'fetchItemBufferTwo' that fetches the data
   function fetchItemBufferTwo(uint _upc) public view returns
   (
-  uint    itemSKU,
-  uint    itemUPC,
-  uint    productID,
-  string memory productNotes,
-  uint    productPrice,
-  uint    itemState,
-  address distributorID,
-  address retailerID,
-  address consumerID
+    uint    itemSKU,
+    uint    itemUPC,
+    uint    productID,
+    string memory productNotes,
+    uint    productPrice,
+    uint    itemState,
+    address distributorID,
+    address retailerID,
+    address consumerID
   )
   {
     // Assign values to the 9 parameters
