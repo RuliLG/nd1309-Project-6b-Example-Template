@@ -224,7 +224,7 @@ contract SupplyChain {
     // Call modifer to check if buyer has paid enough
     paidEnough(items[_upc].productPrice)
     // Call modifer to send any excess ether back to buyer
-    checkValue(items[_upc].productPrice, items[_upc].originFarmerID)
+    checkValue(_upc, items[_upc].originFarmerID)
   {
     // Update the appropriate fields - ownerID, distributorID, itemState
     items[_upc].itemState = State.Sold;
