@@ -219,12 +219,12 @@ contract SupplyChain {
   // Use the above defined modifiers to check if the item is available for sale, if the buyer has paid enough,
   // and any excess ether sent is refunded back to the buyer
   function buyItem(uint _upc) public payable
-    // Call modifier to check if upc has passed previous supply chain stage
-    forSale(_upc)
-    // Call modifer to check if buyer has paid enough
-    paidEnough(items[_upc].productPrice)
-    // Call modifer to send any excess ether back to buyer
-    checkValue(_upc, items[_upc].originFarmerID)
+  // Call modifier to check if upc has passed previous supply chain stage
+  forSale(_upc)
+  // Call modifer to check if buyer has paid enough
+  paidEnough(items[_upc].productPrice)
+  // Call modifer to send any excess ether back to buyer
+  checkValue(_upc, items[_upc].originFarmerID)
   {
     // Update the appropriate fields - ownerID, distributorID, itemState
     items[_upc].itemState = State.Sold;
@@ -242,11 +242,11 @@ contract SupplyChain {
   // Define a function 'shipItem' that allows the distributor to mark an item 'Shipped'
   // Use the above modifers to check if the item is sold
   function shipItem(uint _upc) public
-    // Call modifier to check if upc has passed previous supply chain stage
-    sold(_upc)
-    // Call modifier to verify caller of this function
-    verifyCaller(items[_upc].distributorID)
-    {
+  // Call modifier to check if upc has passed previous supply chain stage
+  sold(_upc)
+  // Call modifier to verify caller of this function
+  verifyCaller(items[_upc].distributorID)
+  {
     // Update the appropriate fields
     items[_upc].itemState = State.Shipped;
     // Emit the appropriate event
@@ -256,10 +256,10 @@ contract SupplyChain {
   // Define a function 'receiveItem' that allows the retailer to mark an item 'Received'
   // Use the above modifiers to check if the item is shipped
   function receiveItem(uint _upc) public
-    // Call modifier to check if upc has passed previous supply chain stage
-    shipped(_upc)
-    // Access Control List enforced by calling Smart Contract / DApp
-    {
+  // Call modifier to check if upc has passed previous supply chain stage
+  shipped(_upc)
+  // Access Control List enforced by calling Smart Contract / DApp
+  {
     // Update the appropriate fields - ownerID, retailerID, itemState
     items[_upc].ownerID = msg.sender;
     items[_upc].retailerID = msg.sender;
@@ -271,10 +271,10 @@ contract SupplyChain {
   // Define a function 'purchaseItem' that allows the consumer to mark an item 'Purchased'
   // Use the above modifiers to check if the item is received
   function purchaseItem(uint _upc) public
-    // Call modifier to check if upc has passed previous supply chain stage
-    received(_upc)
-    // Access Control List enforced by calling Smart Contract / DApp
-    {
+  // Call modifier to check if upc has passed previous supply chain stage
+  received(_upc)
+  // Access Control List enforced by calling Smart Contract / DApp
+  {
     // Update the appropriate fields - ownerID, consumerID, itemState
     items[_upc].ownerID = msg.sender;
     items[_upc].consumerID = msg.sender;
@@ -296,21 +296,21 @@ contract SupplyChain {
     string memory originFarmLongitude
   )
   {
-  // Assign values to the 8 parameters
+    // Assign values to the 8 parameters
 
-  Item memory item = items[_upc];
+    Item memory item = items[_upc];
 
-  return
-  (
-    item.sku,
-    item.upc,
-    item.ownerID,
-    item.originFarmerID,
-    item.originFarmName,
-    item.originFarmInformation,
-    item.originFarmLatitude,
-    item.originFarmLongitude
-  );
+    return
+    (
+      item.sku,
+      item.upc,
+      item.ownerID,
+      item.originFarmerID,
+      item.originFarmName,
+      item.originFarmInformation,
+      item.originFarmLatitude,
+      item.originFarmLongitude
+    );
   }
 
   // Define a function 'fetchItemBufferTwo' that fetches the data
@@ -329,19 +329,19 @@ contract SupplyChain {
   {
     // Assign values to the 9 parameters
 
-  Item memory item = items[_upc];
+    Item memory item = items[_upc];
 
-  return
-  (
-    item.sku,
-    item.upc,
-    item.productID,
-    item.productNotes,
-    item.productPrice,
-    uint(item.itemState),
-    item.distributorID,
-    item.retailerID,
-    item.consumerID
-  );
+    return
+    (
+      item.sku,
+      item.upc,
+      item.productID,
+      item.productNotes,
+      item.productPrice,
+      uint(item.itemState),
+      item.distributorID,
+      item.retailerID,
+      item.consumerID
+    );
   }
 }
